@@ -90,7 +90,7 @@ public class SwipeBackLayout extends FrameLayout {
     private static final int OVERSCROLL_DISTANCE = 10;
 
     private static final int[] EDGE_FLAGS = {
-            EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_TOP, EDGE_ALL, EDGE_HORIZONTAL, EDGE_VERTICAL
+            EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_TOP, EDGE_HORIZONTAL, EDGE_VERTICAL, EDGE_ALL
     };
 
     private int mEdgeFlag;
@@ -548,7 +548,7 @@ public class SwipeBackLayout extends FrameLayout {
             } else if (mEdgeFlag == EDGE_HORIZONTAL) {
                 directionCheck = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_HORIZONTAL, i);
             } else if (mEdgeFlag == EDGE_VERTICAL) {
-                directionCheck = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
+                directionCheck = !mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
             } else if (mEdgeFlag == EDGE_ALL) {
                 directionCheck = true;
             }
