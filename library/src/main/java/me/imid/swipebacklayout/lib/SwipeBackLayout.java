@@ -435,7 +435,7 @@ public class SwipeBackLayout extends FrameLayout {
         return ret;
     }
 
-    //TODO
+    //TODO VERIFY TOP
     private void drawScrim(Canvas canvas, View child) {
         final int baseAlpha = (mScrimColor & 0xff000000) >>> 24;
         final int alpha = (int) (baseAlpha * mScrimOpacity);
@@ -448,12 +448,11 @@ public class SwipeBackLayout extends FrameLayout {
         } else if ((mTrackingEdge & EDGE_BOTTOM) != 0) {
             canvas.clipRect(child.getLeft(), child.getBottom(), getRight(), getHeight());
         }else if ((mTrackingEdge & EDGE_TOP) != 0) {
-            canvas.clipRect(child.getLeft(), child.getTop(), child.getLeft(), getHeight());
+            canvas.clipRect(child.getRight(), child.getTop(), child.getLeft(), getHeight());
         }
         canvas.drawColor(color);
     }
 
-    //TODO 2 SHADOW
     private void drawShadow(Canvas canvas, View child) {
         final Rect childRect = mTmpRect;
         child.getHitRect(childRect);
@@ -637,7 +636,6 @@ public class SwipeBackLayout extends FrameLayout {
             return ret;
         }
 
-        //TODO 3
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
             int ret = 0;
