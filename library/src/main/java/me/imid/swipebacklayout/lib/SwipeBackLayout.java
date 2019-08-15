@@ -44,7 +44,7 @@ public class SwipeBackLayout extends FrameLayout {
     public static final int EDGE_BOTTOM = ViewDragHelper.EDGE_BOTTOM;
 
     /**
-     * Edge flag indicating that the bottom edge should be affected.
+     * Edge flag indicating that the top edge should be affected.
      */
     public static final int EDGE_TOP = ViewDragHelper.EDGE_TOP;
 
@@ -53,6 +53,16 @@ public class SwipeBackLayout extends FrameLayout {
      * Edge flag set indicating all edges should be affected.
      */
     public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT | EDGE_BOTTOM | EDGE_TOP;
+
+    /**
+     * Edge flag set indicating all edges horizontal should be affected.
+     */
+    public static final int EDGE_HORIZONTAL = EDGE_LEFT | EDGE_RIGHT;
+
+    /**
+     * Edge flag set indicating all edges vertical should be affected.
+     */
+    public static final int EDGE_VERTICAL = EDGE_BOTTOM | EDGE_TOP;
 
     /**
      * A view is not currently being dragged or animating as a result of a
@@ -80,7 +90,7 @@ public class SwipeBackLayout extends FrameLayout {
     private static final int OVERSCROLL_DISTANCE = 10;
 
     private static final int[] EDGE_FLAGS = {
-            EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_TOP, EDGE_ALL
+            EDGE_LEFT, EDGE_RIGHT, EDGE_BOTTOM, EDGE_TOP, EDGE_ALL, EDGE_HORIZONTAL, EDGE_VERTICAL
     };
 
     private int mEdgeFlag;
@@ -531,11 +541,14 @@ public class SwipeBackLayout extends FrameLayout {
                 mIsScrollOverValid = true;
             }
             boolean directionCheck = false;
-            if (mEdgeFlag == EDGE_LEFT || mEdgeFlag == EDGE_RIGHT) {
+                   if (mEdgeFlag == EDGE_LEFT || mEdgeFlag == EDGE_RIGHT) {
                 directionCheck = !mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
             } else if (mEdgeFlag == EDGE_BOTTOM || mEdgeFlag == EDGE_TOP ) {
-                directionCheck = !mDragHelper
-                        .checkTouchSlop(ViewDragHelper.DIRECTION_HORIZONTAL, i);
+                directionCheck = !mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_HORIZONTAL, i);
+            } else if (mEdgeFlag == EDGE_HORIZONTAL) {
+                directionCheck = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_HORIZONTAL, i);
+            } else if (mEdgeFlag == EDGE_VERTICAL) {
+                directionCheck = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
             } else if (mEdgeFlag == EDGE_ALL) {
                 directionCheck = true;
             }
